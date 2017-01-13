@@ -1,0 +1,37 @@
+.idea/
+
+# Numerous always-ignore extensions
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+*.sass-cache
+*.pyc
+
+# OS or Editor folders
+.DS_Store
+.cache
+.project
+.settings
+.tmproj
+.directory
+.eslintrc
+nbproject
+Thumbs.db
+
+__pycache__
+.vagrant
+
+#sublime trash
+*.sublime*
+
+# NPM packages folders.
+**/node_modules/
+
+# Data directories
+data_*/
