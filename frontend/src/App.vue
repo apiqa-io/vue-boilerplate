@@ -1,10 +1,14 @@
 <template>
-  <div id="app">
-  </div>
+  <Index />
 </template>
 
 <script>
+import Index from 'components/Index'
 export default {
+  name: 'app',
+  components: {
+    Index
+  }
 }
 </script>
 

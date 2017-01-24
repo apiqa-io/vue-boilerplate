@@ -8,7 +8,7 @@ const config = {
     port: 5432,
     username: 'postgres',
     password: 'postgres',
-    dbname: 'prinzip'
+    dbname: 'boilerplate'
   },
   redis: {
     host: 'redis',
