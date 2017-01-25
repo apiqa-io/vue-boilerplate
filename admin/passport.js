@@ -1,7 +1,7 @@
 import passport from 'passport'
 import LocalStrategy from 'passport-local'
 
-import config from './configs/app.config'
+import config from '/configs/app.config'
 
 passport.use(new LocalStrategy((username, password, done) => {
   if (config.admin.username === username && config.admin.password === password) {

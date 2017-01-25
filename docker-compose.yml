@@ -24,18 +24,20 @@ services:
       - ./configs/nginx.${ENVIRONMENT}.conf:/etc/nginx/nginx.conf
       - ./configs/proxy_params:/etc/nginx/proxy_params
   frontend:
-    image: node:6
+    image: node:${NODE_VERSION}
     volumes:
       - ./frontend:/src:rw
+      - ./configs:/configs:ro
     links:
       - api
     working_dir: /src
     env_file: .env
     command: npm run dev
   admin:
-    image: node:6
+    image: node:${NODE_VERSION}
     volumes:
       - ./admin:/src:rw
+      - ./configs:/configs:ro
     links:
       - postgres
       - redis
@@ -43,9 +45,10 @@ services:
     env_file: .env
     command: npm run dev
   api:
-    image: node:6
+    image: node:${NODE_VERSION}
     volumes:
       - ./api:/src:rw
+      - ./configs:/configs:ro
     working_dir: /src
     env_file: .env
     command: npm run dev

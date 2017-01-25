@@ -9,7 +9,7 @@ import connectRedis from 'connect-redis'
 
 import logger from 'morgan'
 
-import config from './configs/app.config'
+import config from '/configs/app.config'
 import passport from './passport'
 import routes from './routes'
 
