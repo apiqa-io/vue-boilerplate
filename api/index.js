@@ -9,11 +9,15 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.get('/', (req, res, next) => {
-  res.send({response: 'Hello World!'})
+  res.json({ status: 'ok', response: 'Hello World!' })
+})
+
+app.get('/ping', (req, res, next) => {
+  res.json({ status: 'ok', response: `pong: ${req.query.message || ''}` })
 })
 
 app.use((req, res, next) => {
-  const err = new Error('Not Found')
+  const err = new Error(`Not Found: ${req.path}`)
   err.status = 404
   next(err)
 })
@@ -22,7 +26,8 @@ app.use((err, req, res, next) => {
   console.error(err)
   res
     .status(err.status || 500)
-    .render('error', {
+    .json({
+      status: 'error',
       message: err.message
     })
 })
