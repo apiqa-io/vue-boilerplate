@@ -4,37 +4,37 @@ import passport from 'passport'
 const router = Router()
 
 export const loggedIn = (req, res, next) => {
-  if (req.isAuthenticated) {
+  if (req.isAuthenticated()) {
     next()
   } else {
-    res.redirect('/login')
+    res.redirect('/admin/login')
   }
 }
 
 export const loggedOut = (req, res, next) => {
-  if (!req.isAuthenticated) {
+  if (!req.isAuthenticated()) {
     next()
   } else {
-    res.redirect('/')
+    res.redirect('/admin')
   }
 }
 
 router.get('/login', loggedOut, (req, res) => {
-  if (!req.isAuthenticated) {
+  if (!req.isAuthenticated()) {
     res.render('login')
   } else {
-    res.redirect('/')
+    res.redirect('/admin')
   }
 })
 
 router.post('/login', passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/login'
+  successRedirect: '/admin/',
+  failureRedirect: '/admin/login'
 }))
 
 router.get('/logout', (req, res) => {
   req.logout()
-  res.redirect('/login')
+  res.redirect('/admin/login')
 })
 
 export default router
