@@ -2,4 +2,7 @@
 
 {% block content %}
   <h1>{{ title }}</h1>
+  <form action="/admin/logout" method="post">
+    <button type="submit" name="button">Logout</button>
+  </form>
 {% endblock %}

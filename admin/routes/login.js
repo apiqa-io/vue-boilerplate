@@ -32,7 +32,7 @@ router.post('/login', passport.authenticate('local', {
   failureRedirect: '/admin/login'
 }))
 
-router.get('/logout', (req, res) => {
+router.post('/logout', (req, res) => {
   req.logout()
   res.redirect('/admin/login')
 })
