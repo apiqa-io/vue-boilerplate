@@ -21,9 +21,9 @@ docker stop pg_init_db > /dev/null
 docker rm pg_init_db > /dev/null
 
 echo "Installing node packages"
-docker run --rm -ti --env-file .env -v "$PWD"/frontend:/src -w /src node:"$NODE_VERSION" npm install
-docker run --rm -ti --env-file .env -v "$PWD"/admin:/src -w /src node:"$NODE_VERSION" npm install
-docker run --rm -ti --env-file .env -v "$PWD"/api:/src -w /src node:"$NODE_VERSION" npm install
+docker run --rm -ti --env-file .env -v "$PWD"/frontend:/src -w /src kkarczmarczyk/node-yarn yarn
+docker run --rm -ti --env-file .env -v "$PWD"/admin:/src -w /src kkarczmarczyk/node-yarn yarn
+docker run --rm -ti --env-file .env -v "$PWD"/api:/src -w /src kkarczmarczyk/node-yarn yarn
 
 echo ""
 echo "    +-------------------------------------------------------------------+"
