@@ -35,3 +35,7 @@ __pycache__
 
 # Data directories
 data_*/
+
+#Build destinations
+**/public/
+**/dist/
