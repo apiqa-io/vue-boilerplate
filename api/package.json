@@ -1,5 +1,6 @@
 {
   "name": "api-unit",
+  "private": true,
   "version": "0.0.1",
   "scripts": {
     "dev": "nodemon index.js --exec \"node -r 'babel-register'\"",

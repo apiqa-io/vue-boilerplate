@@ -72,6 +72,5 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
       message: err.message
     })
 })
-
 const { PORT = 9000 } = process.env
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`)) // eslint-disable-line no-console

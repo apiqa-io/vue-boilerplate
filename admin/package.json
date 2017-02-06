@@ -1,6 +1,6 @@
 {
   "name": "admin-unit",
-  "version": "0.0.1",
+  "private": true,
   "scripts": {
     "dev": "nodemon app.js --exec \"node -r 'babel-register'\"",
     "clean": "rm -rf dist",
