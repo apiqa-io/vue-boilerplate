@@ -12,6 +12,7 @@
 *~
 *.sass-cache
 *.pyc
+*.dist.js
 
 # OS or Editor folders
 .DS_Store

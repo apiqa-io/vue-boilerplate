@@ -3,8 +3,8 @@
   "private": true,
   "version": "0.0.1",
   "scripts": {
-    "dev": "nodemon index.js --exec \"node -r 'babel-register'\"",
-    "build": "npm run clean && mkdir -p dist && babel src -s -D -d dist --presets es2015,stage-2"
+    "dev": "nodemon api.js --exec \"node -r 'babel-register'\"",
+    "build": "babel app.js --presets es2015,stage-2 -o app.dist.js"
   },
   "dependencies": {
     "babel-cli": "^6.18.0",

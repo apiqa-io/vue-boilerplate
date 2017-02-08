@@ -53,7 +53,7 @@ app.set('view engine', 'njk')
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(express.static(path.join(__dirname, '../public')))
+app.use(express.static(path.join(__dirname, '../static')))
 app.use('/admin/vendor', express.static(path.join(__dirname, '/node_modules/')))
 
 app.use('/admin', routes)
