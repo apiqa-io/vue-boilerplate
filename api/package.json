@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.1",
   "scripts": {
-    "dev": "nodemon api.js --exec \"node -r 'babel-register'\"",
+    "dev": "nodemon app.js --exec \"node -r 'babel-register'\"",
     "build": "babel app.js --presets es2015,stage-2 -o app.dist.js"
   },
   "dependencies": {

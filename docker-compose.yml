@@ -14,7 +14,7 @@ services:
   nginx:
     image: nginx:stable
     ports:
-      - "0.0.0.0:80:80"
+      - "0.0.0.0:${PORT}:80"
     links:
       - frontend
       - admin
