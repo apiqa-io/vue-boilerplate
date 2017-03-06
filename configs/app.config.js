@@ -1,7 +1,7 @@
 const config = {
   admin: {
     username: 'admin',
-    password: '11aaAA'
+    password: 'blablabla'
   },
   db: {
     host: 'postgres',
