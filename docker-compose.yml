@@ -52,3 +52,4 @@ services:
     working_dir: /src
     env_file: .env
     command: npm run dev
+  
