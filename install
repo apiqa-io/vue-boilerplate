@@ -4,13 +4,13 @@ source .env
 echo "Installing USM-boilerplate"
 
 echo "Pulling and building docker images"
-# docker-compose pull
+docker-compose pull
 
 echo "Installing node packages"
-# docker pull kkarczmarczyk/node-yarn
-# docker run --rm -ti --env-file .env -v "$PWD"/frontend:/src -w /src kkarczmarczyk/node-yarn yarn
-# docker run --rm -ti --env-file .env -v "$PWD"/admin:/src -w /src kkarczmarczyk/node-yarn yarn
-# docker run --rm -ti --env-file .env -v "$PWD"/api:/src -w /src kkarczmarczyk/node-yarn yarn
+docker pull kkarczmarczyk/node-yarn
+docker run --rm -ti --env-file .env -v "$PWD"/frontend:/src -w /src kkarczmarczyk/node-yarn yarn
+docker run --rm -ti --env-file .env -v "$PWD"/admin:/src -w /src kkarczmarczyk/node-yarn yarn
+docker run --rm -ti --env-file .env -v "$PWD"/api:/src -w /src kkarczmarczyk/node-yarn yarn
 
 echo "Starting DB"
 docker run -d --env-file .env -v "$PWD"/data_postgres:/var/lib/postgresql/data --name pg_init_db postgres:"$PG_VERSION" > /dev/null
