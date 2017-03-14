@@ -1,8 +1,5 @@
 const config = {
-  admin: {
-    username: 'admin',
-    password: 'blablabla'
-  },
+  roles: ['manager', 'admin', 'superadmin'],
   db: {
     host: 'postgres',
     port: 5432,
