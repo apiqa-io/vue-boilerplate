@@ -20,7 +20,7 @@ router
     })
     .catch(next)
   } else {
-    res.status(403).send({})
+    res.status(403).send('Auth failed')
   }
 })
 .post('/login', (req, res, next) => {
