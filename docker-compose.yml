@@ -33,7 +33,7 @@ services:
       - api
     working_dir: /src
     env_file: .env
-    command: npm run dev
+    command: bash -c "if [[ $ENVIRONMENT == 'prod' ]]; then npm run build; else npm run dev; fi"
   admin:
     image: node:${NODE_VERSION}
     volumes:
@@ -44,7 +44,7 @@ services:
       - redis
     working_dir: /src
     env_file: .env
-    command: npm run dev
+    command: bash -c "if [[ $ENVIRONMENT == 'prod' ]]; then npm run build; else npm run dev; fi"
   api:
     image: node:${NODE_VERSION}
     volumes:

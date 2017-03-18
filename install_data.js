@@ -7,8 +7,8 @@ sequelize.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";')
     force: true
   }))
   .then(() => models.User.create({
-    username: 'superadmin',
-    password: '999',
+    username: 'admin',
+    password: 'admin',
     role: 'superadmin'
   }))
   .then(user => console.log(user.toJSON()))

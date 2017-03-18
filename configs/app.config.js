@@ -3,9 +3,9 @@ const config = {
   db: {
     host: 'postgres',
     port: 5432,
-    username: 'postgres',
-    password: 'postgres',
-    dbname: 'boilerplate'
+    dbname: process.env.PG_DB_NAME,
+    username: process.env.PG_DB_USER,
+    password: process.env.PG_DB_PASS
   },
   redis: {
     host: 'redis',
