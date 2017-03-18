@@ -6,16 +6,16 @@
     <div v-else class="wrapper">
       <div class="login">
         <input
-        v-model="username"
-        label="Username"
-        name="username">
+          v-model="username"
+          label="Username"
+          name="username">
         </input>
         <input
-        v-model="password"
-        label="Password"
-        name="password"
-        type="password"
-        ></input>
+          v-model="password"
+          label="Password"
+          name="password"
+          type="password">
+        </input>
         <button @click="login">LOGIN</button>
       </div>
     </div>
@@ -39,21 +39,20 @@
     methods: {
       login () {
         this.axios.post('/api/admin/login', {
-          username: this.login,
+          username: this.username,
           password: this.password
         })
         .then(({ data }) => {
-          this.login = ''
+          this.username = ''
           this.password = ''
           this.$root.setUserId(data.user.id)
-          this.$router.push('/')
         })
         .catch(console.error)
       },
       logout () {
         this.axios.get('/api/admin/logout')
         .then(() => {
-          window.location.href = '/'
+          this.$root.clearUserId()
         })
         .catch(console.error)
       }
@@ -61,14 +60,68 @@
   }
 </script>
 
-<style scoped>
+<style>
+  * {
+    box-sizing: border-box;
+    outline: none;
+  }
+
+  html, body, #app {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  a {
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  button,
+  input[type=button],
+  input[type=file],
+  input[type=reset],
+  input[type=submit],
+  .btn,
+  .button {
+    border: 0;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  [disabled] {
+    pointer-events: none;
+  }
+
+  [hidden] {
+    display: none;
+  }
+
+  .clearfix:after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+
  .wrapper {
+   height: 100%;
    display: flex;
-   flex-direction: column;
    justify-content: center;
+   align-items: center;
  }
 
- .login .input-group {
-   margin: 0;
+ .login {
+   max-width: 50%;
+ }
+
+ .login input {
+   display: block;
+   width: 100%;
  }
 </style>
