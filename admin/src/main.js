@@ -3,13 +3,11 @@
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import Vuetify from 'vuetify'
 
 import App from './App'
 import store from './store'
 import router from './router'
 
-Vue.use(Vuetify)
 Vue.use(VueAxios, axios)
 
 Vue.config.productionTip = true
