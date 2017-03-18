@@ -33,6 +33,7 @@ __pycache__
 
 # NPM packages folders.
 **/node_modules/
+*.lock
 
 # Data directories
 data_*/
