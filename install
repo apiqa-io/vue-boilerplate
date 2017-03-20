@@ -20,7 +20,7 @@ echo "Initializing DB"
 docker run --rm --link pg_init_db:postgres --name pg_init_db_app postgres:"$PG_VERSION" psql -h postgres -U postgres -c "CREATE DATABASE $PG_DB_NAME;"
 docker run --rm --link pg_init_db:postgres --name pg_init_db_app postgres:"$PG_VERSION" psql -h postgres -U postgres -c "ALTER USER $PG_DB_USER WITH SUPERUSER PASSWORD '$PG_DB_PASS';"
 if [[ $DATA_FILE ]]; then
-  docker run --rm -v "$PWD":/src -v "$PWD"/configs:/configs -v "$PWD"/api/node_modules:/src/node_modules --link pg_init_db:postgres --name pg_init_db_app -w /src node:"$NODE_VERSION" node /src/"$DATA_FILE"
+  docker run --rm --env-file .env -v "$PWD":/src -v "$PWD"/configs:/configs -v "$PWD"/api/node_modules:/src/node_modules --link pg_init_db:postgres --name pg_init_db_app -w /src node:"$NODE_VERSION" node /src/"$DATA_FILE"
   # docker run --rm -v "$PWD"/database:/src --link pg_init_db:postgres --name pg_init_db_app postgres:"$PG_VERSION" psql -h postgres -U postgres -d "$PG_DB_NAME" -f /src/"$DATA_FILE"
 fi
 
