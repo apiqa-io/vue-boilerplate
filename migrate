@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+if [ "$1" == "create" ]; then
+  docker-compose exec api node_modules/.bin/sequelize --env=db --config=../configs/app.config.js migration:create --name="${@:2}"
+elif [ "$1" == "down" ]; then
+  docker-compose exec api node_modules/.bin/sequelize --env=db --config=../configs/app.config.js db:migrate:undo
+else
+  docker-compose exec api node_modules/.bin/sequelize --env=db --config=../configs/app.config.js db:migrate
+fi
