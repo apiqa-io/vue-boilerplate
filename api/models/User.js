@@ -48,6 +48,11 @@ module.exports = (sequelize, DataTypes) => sequelize.define('user', {
           }
         })
       })
+    },
+    toJSON () {
+      let values = Object.assign({}, this.get())
+      delete values.password
+      return values
     }
   },
   hooks: {
