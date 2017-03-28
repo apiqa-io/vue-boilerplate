@@ -7,7 +7,7 @@ const sequelize = new Sequelize(
   config.db.dbname,
   config.db.username,
   config.db.password, {
-    dialect: 'postgres',
+    dialect: config.db.dialect,
     host: config.db.host,
     port: config.db.port,
     logging: process.env.ENVIRONMENT === 'dev' ? console.log : false,
