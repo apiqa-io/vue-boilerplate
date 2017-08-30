@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+source .env
+
+# add pre-commit linting hook
+ln -srf ./lint .git/hooks/pre-commit
+
+docker-compose up -d
+echo ""
+echo "Services:"
+docker-compose ps

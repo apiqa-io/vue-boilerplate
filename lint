@@ -1,0 +1,35 @@
+#!/bin/bash
+echo -e "Linting:\n"
+
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | egrep ".vue|.js|.jsx" | grep -v ".json" | grep -v "**/static")
+
+if [ "$STAGED_FILES" = "" ]; then
+    echo -e "\tNothing to lint. Exiting.\n"
+    exit 0
+fi
+
+PASS=true
+
+for FILE in $STAGED_FILES
+do
+    #get first level folder name
+    APP=$(echo $FILE | cut -d'/' -f 1)
+    ./$APP/./node_modules/.bin/eslint -c ./$APP/.eslintrc.js $FILE --no-ignore
+    RESULT=$?
+    if [ $RESULT == 0 ];
+    then
+        echo -e "\t\033[32mPassed: $FILE\033[0m"
+    else
+        echo -e "\t\033[41mFailed: $FILE\033[0m"
+        PASS=false
+    fi
+done
+
+if ! $PASS; then
+    echo -e "\n\033[41mCOMMIT FAILED:\033[0m Your commit contains files that should pass linter but do not. Please fix the errors and try again.\n\n"
+    exit 1
+else
+    echo -e "\n\033[42mCOMMIT SUCCEEDED\033[0m\n\n"
+fi
+
+exit $?

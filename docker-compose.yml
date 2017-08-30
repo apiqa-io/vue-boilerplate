@@ -1,0 +1,52 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:${PG_VERSION}
+    env_file: .env
+    volumes:
+      - .:/src
+      - ./data/postgres:/var/lib/postgresql/data
+  redis:
+    image: redis
+    volumes:
+      - ./data/redis:/data
+  nginx:
+    image: nginx:stable
+    ports:
+      - "0.0.0.0:${PORT}:80"
+      - "0.0.0.0:${ADMIN_PORT}:${ADMIN_PORT}"
+    links:
+      - frontend
+      - admin
+      - api
+    volumes:
+      - .:/src
+      - ./nginx/${ENVIRONMENT}.conf:/etc/nginx/nginx.conf
+      - ./nginx/proxy_params:/etc/nginx/proxy_params
+  frontend:
+    image: node:${NODE_VERSION}
+    volumes:
+      - ./frontend:/src:rw
+    links:
+      - api
+    working_dir: /src
+    env_file: .env
+    command: bash -c "if [[ $ENVIRONMENT == 'prod' ]] || [[ $ENVIRONMENT == 'stage' ]]; then npm start; else npm run dev; fi"
+  admin:
+    image: node:${NODE_VERSION}
+    volumes:
+      - ./admin:/src:rw
+    links:
+      - postgres
+      - redis
+    working_dir: /src
+    env_file: .env
+    command: bash -c "if [[ $ENVIRONMENT == 'prod' ]] || [[ $ENVIRONMENT == 'stage' ]]; then npm run build; else npm run dev; fi"
+  api:
+    image: node:${NODE_VERSION}
+    volumes:
+      - ./api:/src:rw
+    working_dir: /src
+    env_file: .env
+    command: bash -c "if [[ $ENVIRONMENT == 'prod' ]] || [[ $ENVIRONMENT == 'stage' ]]; then npm start; else npm run dev; fi"
+  
