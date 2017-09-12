@@ -3,9 +3,9 @@ const config = {
     dialect: 'postgres',
     host: 'postgres',
     port: 5432,
-    database: process.env.PG_DB_NAME,
-    username: process.env.PG_DB_USER,
-    password: process.env.PG_DB_PASS
+    database: process.env.POSTGRES_DB,
+    username: process.env.POSTGRES_USER,
+    password: process.env.POSTGRES_PASSWORD
   },
   redis: {
     host: 'redis',

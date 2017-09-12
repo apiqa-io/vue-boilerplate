@@ -5,59 +5,36 @@ echo ""
 echo "Setting up ${PROJECT_NAME}"
 echo ""
 
-echo ""
 echo "Pulling docker images"
 echo "================================"
 docker-compose pull
-docker pull kkarczmarczyk/node-yarn
 
 echo ""
 echo "Installing frontend dependencies"
 echo "================================"
-
-docker run --rm -ti --env-file .env -v "$PWD"/frontend:/src -w /src kkarczmarczyk/node-yarn yarn
+docker run --rm -ti --env-file .env -v "$PWD"/frontend:/src -w /src node:$NODE_VERSION npm i
 
 echo ""
 echo "Installing admin dependencies"
 echo "================================"
-
-docker run --rm -ti --env-file .env -v "$PWD"/admin:/src -w /src kkarczmarczyk/node-yarn yarn
+docker run --rm -ti --env-file .env -v "$PWD"/admin:/src -w /src node:$NODE_VERSION npm i
 
 echo ""
 echo "Installing api dependencies"
 echo "================================"
+docker run --rm -ti --env-file .env -v "$PWD"/api:/src -w /src node:$NODE_VERSION npm i
 
-docker run --rm -ti --env-file .env -v "$PWD"/api:/src -w /src kkarczmarczyk/node-yarn yarn
+docker-compose up -d
 
-echo ""
-echo "Starting DB"
-echo "================================"
+docker run --rm -v "$PWD":/src -w /src --link "$(basename $PWD)"_postgres_1:postgres --net "$(basename $PWD)"_default --name pg_init_db_w8 appropriate/nc sh -c "echo \"Waiting for postgres container...\"; until nc -z postgres 5432 &> /dev/null; do sleep 2; done"
 
-docker run -d --env-file .env -v "$PWD"/data/postgres:/var/lib/postgresql/data --name pg_init_db postgres:"$PG_VERSION" > /dev/null
-docker run --rm -v "$PWD":/src -w /src --link pg_init_db:postgres --name pg_init_db_w8 appropriate/nc sh -c "echo \"Waiting for postgres container...\"; until nc -z postgres 5432 &> /dev/null; do sleep 2; done"
-echo "Postgres container ready"
-
-echo ""
-echo "Initializing DB"
-echo "================================"
-
-docker run --rm --link pg_init_db:postgres --name pg_init_db_app postgres:"$PG_VERSION" psql -h postgres -U postgres -c "CREATE DATABASE $PG_DB_NAME;"
-docker run --rm --link pg_init_db:postgres --name pg_init_db_app postgres:"$PG_VERSION" psql -h postgres -U postgres -c "ALTER USER $PG_DB_USER WITH SUPERUSER PASSWORD '$PG_DB_PASS';"
-docker run --rm --env-file .env \
-  -v "$PWD"/api:/src --link pg_init_db:postgres --name pg_init_db_app -w /src node:"$NODE_VERSION" \
-  node ./node_modules/.bin/sequelize --env=db --config=config.js --migrations-path=db/migrations db:migrate
-
-echo ""
-echo "DB init successful"
-
-docker stop pg_init_db > /dev/null
-docker rm pg_init_db > /dev/null
+./migrate
 
 echo ""
 echo "    +-------------------------------------------------------------------+"
 echo "    | It seems that the installation was successful.                    |"
-echo "    | Now run ./start to start project and open http://localhost for    |"
-echo "    | main app and http://localhost:8520 for admin panel                |"
+echo "    | Now open http://localhost for main app                            |"
+echo "    | and http://localhost:8520 for admin panel                         |"
 echo "    | Login: admin@mail.ru                                              |"
 echo "    | Password: admin                                                   |"
 echo "    +-------------------------------------------------------------------+"
