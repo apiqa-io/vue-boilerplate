@@ -1,7 +1,7 @@
 version: '3'
 services:
   postgres:
-    image: postgres:${PG_VERSION}
+    image: postgres:${POSTGRES_VERSION}
     env_file: .env
     volumes:
       - .:/src
