@@ -1,14 +1,14 @@
 const { sequelize } = require('db')
 
 module.exports = {
-  up: function (queryInterface, Sequelize) {
+  up (queryInterface, Sequelize) {
     return sequelize.models.user.create({
       email: 'admin@mail.ru',
       password: 'admin'
     })
   },
 
-  down: function (queryInterface, Sequelize) {
-    return queryInterface.delete('users', { username: 'admin' })
+  down (queryInterface, Sequelize) {
+    return queryInterface.delete('users', { email: 'admin@mail.ru' })
   }
 }
