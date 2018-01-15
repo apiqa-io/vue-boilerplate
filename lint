@@ -14,7 +14,7 @@ for FILE in $STAGED_FILES
 do
     #get first level folder name
     APP=$(echo $FILE | cut -d'/' -f 1)
-    git show ":$FILE" | ./$APP/./node_modules/.bin/eslint -c ./$APP/.eslintrc.js --fix --no-ignore --stdin --stdin-filename "$FILE"
+    git show ":$FILE" | ./$APP/./node_modules/.bin/eslint -c ./$APP/.eslintrc.js --no-ignore --stdin --stdin-filename "$FILE"
     RESULT=$?
     if [ $RESULT == 0 ];
     then
